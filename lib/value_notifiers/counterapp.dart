@@ -24,7 +24,7 @@ class _CounterAppState extends State<CounterApp> {
   @override
   void initState() {
     super.initState();
-    //  _myController.text = '<Okpe Francis Nathaniel>';
+
     _myController.addListener(() {
       setState(() {});
     });

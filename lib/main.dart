@@ -1,28 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:practice/value_notifiers/counterapp.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:practice/bloc/homepage.dart';
+import 'package:practice/getx/getTest.dart';
+import 'package:practice/solid_principles/singleton_pattern/debug_logger.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-final GoRouter _router = GoRouter(routes: [
-  GoRoute(path: "/", builder: (context, state) => const CounterApp()),
-  GoRoute(path: "/settings", builder: (context, state) => const SettingsPage())
-]);
+// final GoRouter _router = GoRouter(routes: [
+//   GoRoute(path: "/", builder: (context, state) => const CounterApp()),
+//   GoRoute(path: "/settings", builder: (context, state) => const SettingsPage())
+// ]);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return GetMaterialApp(
       title: 'Go-router',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      routerConfig: _router,
+      initialBinding: StoreBinding(),
+      // routerConfig: _router,
+      home: BlocProvider(
+        create: (_) => PersonBloc(),
+        child: const HomePage(),
+      ),
     );
   }
 }
@@ -35,8 +43,11 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  final logger = DebugLogger();
+
   @override
   Widget build(BuildContext context) {
+    logger.log('my name is natty,App just started');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Practice App'),
