@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:practice/bloc/homepage.dart';
+import 'package:practice/efficient_api_calls/pages/api_test_screen.dart';
+import 'package:practice/liskov_button.dart';
 import 'package:practice/getx/getTest.dart';
 import 'package:practice/solid_principles/singleton_pattern/debug_logger.dart';
 
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
       // routerConfig: _router,
       home: BlocProvider(
         create: (_) => PersonBloc(),
-        child: const HomePage(),
+        child: const ApiTestScreen(),
       ),
     );
   }

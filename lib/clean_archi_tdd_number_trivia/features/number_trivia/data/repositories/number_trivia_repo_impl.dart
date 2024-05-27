@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dartz/dartz.dart';
 import 'package:practice/clean_archi_tdd_number_trivia/core/error/exceptions.dart';
-
 import 'package:practice/clean_archi_tdd_number_trivia/core/error/failure.dart';
 import 'package:practice/clean_archi_tdd_number_trivia/core/platform/netwrok_info.dart';
 import 'package:practice/clean_archi_tdd_number_trivia/features/number_trivia/data/datasources/number_trivia_local_data_source.dart';
