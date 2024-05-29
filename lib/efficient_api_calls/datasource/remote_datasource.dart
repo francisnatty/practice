@@ -21,10 +21,10 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       path: 'https://jsonplaceholder.typicode.com/posts',
       method: MethodType.get,
       fromJsonT: (json) => ListResponse<PostModel>.fromJson({
-        "page": 1,
-        "results": json,
-        "total_pages": 1,
-        "total_results": json.length
+        'page': 1,
+        'results': json,
+        'total_pages': 1,
+        'total_results': json.length
       }, (json) => PostModel.fromMap(json as Map<String, dynamic>)),
     );
   }

@@ -23,7 +23,7 @@ class PostModel {
   }
 
   factory PostModel.fromMap(Map<String, dynamic> map) {
-    print(map.toString());
+    
     return PostModel(
       userId: map['userId'] as int,
       id: map['id'] as int,

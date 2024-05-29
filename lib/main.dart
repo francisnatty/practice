@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:practice/bloc/homepage.dart';
-import 'package:practice/efficient_api_calls/pages/api_test_screen.dart';
-import 'package:practice/liskov_button.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
+
+import 'package:practice/clean_archi_tdd_number_trivia/core/dependency_injection/service_locator.dart';
+
 import 'package:practice/getx/getTest.dart';
 import 'package:practice/solid_principles/singleton_pattern/debug_logger.dart';
+import 'package:practice/theming/custom_theme.dart';
+import 'package:practice/theming/theme_bloc/theme_bloc.dart';
+import 'package:practice/theming/theme_test.dart';
 
-void main() {
+import 'theming/theme_bloc/theme_state.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  setUpLocator();
+  HydratedBloc.storage = await HydratedStorage.build(
+      storageDirectory: await getApplicationDocumentsDirectory());
   runApp(const MyApp());
 }
 
@@ -21,17 +32,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Go-router',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      initialBinding: StoreBinding(),
-      // routerConfig: _router,
-      home: BlocProvider(
-        create: (_) => PersonBloc(),
-        child: const ApiTestScreen(),
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (context) => ThemeBloc())],
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          return GetMaterialApp(
+            title: 'Go-router',
+            theme: state is ThemeLight ? state.themeData : lightTheme,
+            darkTheme: state is ThemeDark ? state.themeData : darkTheme,
+            themeMode: state is ThemeLight ? ThemeMode.light : ThemeMode.dark,
+            initialBinding: StoreBinding(),
+            // routerConfig: _router,
+            home: const ThemeTestScreen(),
+          );
+        },
       ),
     );
   }
@@ -49,7 +63,6 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    logger.log('my name is natty,App just started');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Practice App'),

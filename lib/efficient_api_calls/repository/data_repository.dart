@@ -18,6 +18,7 @@ class DataRepositorytImpl implements DataRepository {
   @override
   Future<ApiResponse<ListResponse<PostModel>>> getMovies() async {
     var moviesList = await remoteDataSource.getMovies();
+    print(moviesList);
     return moviesList;
   }
 }
