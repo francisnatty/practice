@@ -3,14 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:practice/animations/hero_animations/hero_test.dart';
 
 import 'package:practice/clean_archi_tdd_number_trivia/core/dependency_injection/service_locator.dart';
 
 import 'package:practice/getx/getTest.dart';
-import 'package:practice/solid_principles/singleton_pattern/debug_logger.dart';
 import 'package:practice/theming/custom_theme.dart';
 import 'package:practice/theming/theme_bloc/theme_bloc.dart';
 import 'package:practice/theming/theme_test.dart';
+import 'dart:developer' as devtools show log;
 
 import 'theming/theme_bloc/theme_state.dart';
 
@@ -22,10 +23,9 @@ void main() async {
   runApp(const MyApp());
 }
 
-// final GoRouter _router = GoRouter(routes: [
-//   GoRoute(path: "/", builder: (context, state) => const CounterApp()),
-//   GoRoute(path: "/settings", builder: (context, state) => const SettingsPage())
-// ]);
+extension Log on Object {
+  void log() => devtools.log(toString());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             themeMode: state is ThemeLight ? ThemeMode.light : ThemeMode.dark,
             initialBinding: StoreBinding(),
             // routerConfig: _router,
-            home: const ThemeTestScreen(),
+            home: const HeroAnimations(),
           );
         },
       ),
@@ -59,8 +59,6 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  final logger = DebugLogger();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
