@@ -12,9 +12,6 @@ class _HeroAnimationsState extends State<HeroAnimations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Hero Animation'),
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -24,8 +21,10 @@ class _HeroAnimationsState extends State<HeroAnimations> {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const HeroSecondScreen()));
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => const HeroSecondScreen()),
+              );
             },
             child: const Text('GO TO'),
           )
